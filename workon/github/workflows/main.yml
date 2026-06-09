@@ -1,0 +1,35 @@
+name: Pipeline CI/CD
+
+env:
+  TERRAFORM_PATH: aws-ec2
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.4"
+
+      - name: Terraform Init
+        id: init
+        run: terraform -chdir=$TERRAFORM_PATH init 
+      
+      - name: Terraform fmt
+        id: fmt
+        run: terraform -chdir=$TERRAFORM_PATH fmt -check
+        continue-on-error: true
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform -chdir=$TERRAFORM_PATH validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform -chdir=$TERRAFORM_PATH plan -no-color
