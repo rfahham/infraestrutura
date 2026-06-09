@@ -1,0 +1,22 @@
+//Instalação do Jenkins e do Java
+
+- name: Instalação do Jenkins
+  hosts: jenkins
+  remote_user: root
+  tasks:
+    - name: Instalação do java
+      ansible.builtin.apt:
+        name: openjdk-11-jdk
+        state: present
+
+
+
+
+
+
+//Instalação do Docker
+
+
+
+
+

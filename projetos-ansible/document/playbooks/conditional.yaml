@@ -1,0 +1,21 @@
+# Só fará a instalação nos servidores DEBIAM
+
+- name: Instalando lista de pacotes no debiam
+  hosts: all
+  tasks:
+    - name: Instalando pacotes
+      become: true
+      apt:
+        name: "{{ item }}"
+      loop:
+        - wget
+        - vim
+        - tree
+        - git 
+        - jq
+      when: ansible_distribution == "debian"
+
+
+# ansible-playbook conditional.yaml
+
+# ansible all -m setup -a "filter=ansible_distribution"

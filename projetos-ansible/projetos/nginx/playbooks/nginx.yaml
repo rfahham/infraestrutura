@@ -1,0 +1,9 @@
+---
+- name: Instalar o nginx
+  hosts: distros
+  decome: yes # as tarefas vão ser executadas como root
+  tasks: 
+  - name: Instalar servidor web
+    package:
+     name: nginx
+     state: present

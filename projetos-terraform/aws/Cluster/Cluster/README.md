@@ -1,0 +1,1 @@
+https://medium.com/@rodrigofrs13/criando-um-cluster-eks-com-terraform-e-helm-chart-46775b40ea68

@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Test, Build and Release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        node-version: [ 24.x ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix['node-version'] }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Library
+        run: npm run build --if-present
+      - name: Run Tests
+        run: npm test --if-present
+      - name: Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v6
+        with:
+          semantic_version: 24
+          dry_run: false
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GIT_AUTHOR_NAME: github-actions
+          GIT_AUTHOR_EMAIL: github-actions@github.com
+          GIT_COMMITTER_NAME: github-actions
+          GIT_COMMITTER_EMAIL: github-actions@github.com
+          CI: true
+      - name: Update major version tag
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          MAJOR="v${{ steps.semantic.outputs.new_release_major_version }}"
+          TAG="v${{ steps.semantic.outputs.new_release_version }}"
+          echo "Updating $MAJOR tag to point to $TAG"
+          git tag -f "$MAJOR" "$TAG"
+          git push -f origin "$MAJOR"

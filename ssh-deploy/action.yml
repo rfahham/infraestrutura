@@ -1,0 +1,62 @@
+name: "ssh deploy"
+description: "NodeJS action for FAST deployment with rsync/ssh and remote script execution before/after rsync"
+author: "easingthemes"
+inputs:
+  SSH_PRIVATE_KEY:
+    description: "Private key part of an SSH key pair"
+    required: true
+  REMOTE_HOST:
+    description: "Remote host"
+    required: true
+  REMOTE_USER:
+    description: "Remote user"
+    required: true
+  REMOTE_PORT:
+    description: "Remote port"
+    required: false
+    default: "22"
+  SOURCE:
+    description: "Source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`"
+    required: false
+    default: ""
+  TARGET:
+    description: "Target directory"
+    required: false
+    default: ""
+  ARGS:
+    description: "Arguments to pass to rsync"
+    required: false
+    default: "-rlgoDzvc -i"
+  SSH_CMD_ARGS:
+    description: "An array of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5 "
+    required: false
+    default: "-o StrictHostKeyChecking=no"
+  EXCLUDE:
+    description: "paths to exclude separated by `,`, ie: `/dist/, /node_modules/`"
+    required: false
+    default: ""
+  SCRIPT_BEFORE:
+    description: "Script to run on host machine before rsync"
+    required: false
+    default: ""
+  SCRIPT_BEFORE_REQUIRED:
+    description: "If not an empty string, the action will fail if the before script fails. Note: The string 'false' will be treated as true"
+    required: false
+    default: ""
+  SCRIPT_AFTER:
+    description: "Script to run on host machine after rsync"
+    required: false
+    default: ""
+  SCRIPT_AFTER_REQUIRED:
+    description: "If not an empty string, the action will fail if the after script fails. Note: The string 'false' will be treated as true"
+    required: false
+    default: ""
+outputs:
+  status:
+    description: "Status"
+runs:
+  using: "node24"
+  main: "dist/index.js"
+branding:
+  color: "green"
+  icon: "truck"

@@ -1,0 +1,18 @@
+- name: Instalando lista de pacotes no debiam
+  hosts: debiam
+  tasks:
+    - name: Instalando pacotes
+      become: true
+      apt:
+        name: "{{ item }}"
+      loop:
+        - wget
+        - vim
+        - tree
+        - git 
+        - jq
+
+
+# ansible-playbook debiam.yaml
+
+# ansible debiam -m shell -a "dpkg -l | egrep 'wget|vim|tree|git|jq'"

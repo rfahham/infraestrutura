@@ -1,0 +1,16 @@
+- name: Instalando lista de pacotes no centos
+  hosts: centos
+  vars:
+   - packages:
+       - wget
+       - vim
+       - tree
+  tasks:
+    - name: Instalando pacotes
+      become: true
+      yum:
+        name: "{{ packages }}"
+
+# ansible-playbook centos.yaml
+
+# ansible centos -m shell -a "rpm -qa | egrep 'wget|vim|tree'"

@@ -1,0 +1,17 @@
+- name: Criação de usuários com variaveis locais
+  host: all
+  vars: 
+    - server_name: servidor01
+    - user_name: analistadevops
+    - conf_file: /opt/app/app.conf
+  tasks:
+    - name: criando usuário
+      become: true
+      user: 
+       name: "{{ user_name }}"
+
+# ansible-playbook usuario.yaml
+
+# ansible all -m shell -a "getent passwd analistadevops"
+
+# ansible-playbook usuario.yaml -e username=ricardo-fahham

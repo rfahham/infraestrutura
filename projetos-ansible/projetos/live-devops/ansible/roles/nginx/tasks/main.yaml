@@ -1,0 +1,12 @@
+- name: Update SO
+  apt:
+  update_cache: yes
+
+- name: Install NGINX
+  apt:
+  name: nginx
+
+- name: Copy Files html
+  copy:
+    src: ./files/cep.html 
+    dest: /var/www/html

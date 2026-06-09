@@ -1,0 +1,26 @@
+- name: Ansible Playbook para instalar Apache no Linux
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Instalar Apache
+      apt: name=apache2 update_cache=yes state=latest
+
+    - name: Aplicar permissão no diretório
+      file:
+        path: "/var/www/html"
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: "0775"
+    
+    - name: Copiar arquivo index
+      template:
+        src: "files/index-template.html"
+        dest: "var/www/html/index.html"
+
+    - name: "IPTables: Permitir trafego na porta 80"
+      iptables: 
+        chain: INPUT
+        protocol: tcp
+        destination_port: 80
+        jump: ACCEPT 

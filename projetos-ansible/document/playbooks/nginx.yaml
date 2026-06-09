@@ -1,0 +1,9 @@
+---
+- name: Instalar o nginx
+  hosts: nginx # Especificados no arquivo hosts do diretório/etc/ansible
+  tasks: 
+  - name: Instalar servidor web
+    become: true # as tarefas vão ser executadas como root
+    package:
+      name: nginx
+      state: present

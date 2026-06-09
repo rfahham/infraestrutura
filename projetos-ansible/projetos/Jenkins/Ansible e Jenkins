@@ -1,0 +1,12 @@
+Ansible e Jenkins
+
+Como instalar seu Jenkins com uma linha de comando
+
+Utilizar o Ansible pra gerenciar o setup dos nossos ambientes é sem dúvida uma das melhores formas de ganhar velocidade e consistência. Pois com ele eu consigo definir as configurações em todas as máquinas e garanto que sempre vai ter o mesmo comportamento.
+
+E na aula de hoje, eu vou te mostrar na prática como utilizar o Ansible pra fazer o setup de uma máquina com o Jenkins, pra você já sair criando as suas pipelines com apenas um comando.Ansible e Jenkins: Como instalar seu Jenkins com uma linha de comando
+
+Utilizar o Ansible pra gerenciar o setup dos nossos ambientes é sem dúvida uma das melhores formas de ganhar velocidade e consistência. Pois com ele eu consigo definir as configurações em todas as máquinas e garanto que sempre vai ter o mesmo comportamento.
+
+E na aula de hoje, eu vou te mostrar na prática como utilizar o Ansible pra fazer o setup de uma máquina com o Jenkins, pra você já sair criando as suas pipelines com apenas um comando.
+

@@ -1,0 +1,13 @@
+[jenkins]
+Ip do servidor // precisa de acesso ssh
+
+[jenkins:vars]
+ansible_ssh_private_key_file=~/.ssh/terraform
+ansible_user=root
+
+
+Acesso ao servidor passando uma chave específica
+$ ssh root@<IP do Servidor> -i ~/.ssh/terraform
+
+
+Por questão e segurança não é recomendado acessar com root o servidor

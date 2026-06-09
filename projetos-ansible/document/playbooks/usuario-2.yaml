@@ -1,0 +1,13 @@
+- name: Criação de usuários com variaveis em arquivo
+  host: all
+  vars_files: 
+    - config.yaml
+  tasks:
+    - name: criando usuário
+      become: true
+      user: 
+       name: "{{ user_name }}"
+
+# ansible-playbook usuario-2.yaml
+
+# ansible all -m shell -a "getent passwd analistadevops"
